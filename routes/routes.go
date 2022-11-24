@@ -13,7 +13,7 @@ func Init() {
 	app.Get("/employee", getEmployees)
 	app.Get("/employee/:id", getEmployeeById)
 	app.Post("/employee", createEmployee)
-	//app.Put("/employee/:id")
+	app.Put("/employee/:id", updateEmployee)
 	app.Delete("/employee/:id", deleteEmployee)
 
 	log.Fatal(app.Listen(":3000"))
@@ -44,5 +44,9 @@ func getEmployeeById(c *fiber.Ctx) error {
 func deleteEmployee(c *fiber.Ctx) error {
 	id := c.Params("_id")
 	database.DeleteCollection(id)
+	return nil
+}
+
+func updateEmployee(c *fiber.Ctx) error {
 	return nil
 }

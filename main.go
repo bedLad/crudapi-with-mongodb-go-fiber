@@ -8,7 +8,7 @@ import (
 )
 
 const dbName = "fiber-hrms"
-const mongoURI = "mongodb://localhost:27017"
+const mongoURI = "mongodb+srv://rutvik:rUTVIK%4013@golang-coll.zmxavsk.mongodb.net/?retryWrites=true&w=majority"
 
 func main() {
 	// connect to the database

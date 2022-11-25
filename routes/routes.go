@@ -27,7 +27,6 @@ func getEmployees(c *fiber.Ctx) error {
 func createEmployee(c *fiber.Ctx) error {
 	var employee models.Employee
 	if err := c.BodyParser(&employee); err != nil {
-		// i get error from here
 		return c.Status(400).SendString(err.Error())
 	}
 
@@ -36,17 +35,24 @@ func createEmployee(c *fiber.Ctx) error {
 }
 
 func getEmployeeById(c *fiber.Ctx) error {
-	id := c.Params("_id")
+	id := c.Params("id")
 	employee := database.GetCollectionByID(id)
 	return c.Status(201).JSON(employee)
 }
 
 func deleteEmployee(c *fiber.Ctx) error {
-	id := c.Params("_id")
+	id := c.Params("id")
 	database.DeleteCollection(id)
 	return nil
 }
 
 func updateEmployee(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var employee models.Employee
+	if err := c.BodyParser(&employee); err != nil {
+		return c.Status(400).SendString(err.Error())
+	}
+
+	database.UpdateCollection(id, employee)
 	return nil
 }

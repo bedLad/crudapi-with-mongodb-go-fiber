@@ -90,3 +90,17 @@ func DeleteCollection(employeeId string) {
 
 	fmt.Println("Record deleted with id : ", deleted.DeletedCount)
 }
+
+func UpdateCollection(employeeId string, employee models.Employee) {
+	id, _ := primitive.ObjectIDFromHex(employeeId)
+	filter := bson.M{"_id": id}
+	fmt.Printf("%v %v %v", employee.Name, employee.Salary, employee.Age)
+	update := bson.M{"$set": bson.M{"name": employee.Name, "salary": employee.Salary, "age": employee.Age}}
+
+	result, err := mg.Db.Collection("employees").UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("The record has been updated %T", result.UpsertedID)
+}
